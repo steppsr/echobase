@@ -1,0 +1,6 @@
+# .gitignore
+
+.env
+config.local.php   # if you choose that name instead
+/uploads/*
+!/uploads/.gitkeep   # optional: keep the folder in git but empty
