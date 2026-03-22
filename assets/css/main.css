@@ -1,0 +1,531 @@
+/* assets/css/main.css */
+:root {
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-secondary: #555;
+  --border: #ddd;
+  --accent: #3b82f6;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --text: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --border: #334155;
+  --accent: #60a5fa;
+  --shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.board {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.column {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  min-width: 320px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.column-header {
+  padding: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.03);
+}
+
+.column-body {
+  flex: 1;
+  padding: 0.75rem;
+  min-height: 200px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.card:active { cursor: grabbing; }
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: grid;
+  place-items: center;
+}
+
+.modal-content {
+  background: var(--surface);
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  position: relative;
+  padding: 1.5rem 1.5rem 2rem;
+}
+
+.modal-content h2 {
+	margin: 0 0 1.5rem 0;
+	padding-right: 6rem;
+	font-size: 1.6rem;
+}
+
+.close-modal:hover {
+  opacity: 1;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Button group (Close + Delete) */
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Standard button styling for both Close and Delete */
+.modal-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.modal-btn.close-btn {
+  background: var(--accent);           /* blue background */
+  color: white;
+}
+
+.modal-btn.close-btn:hover {
+  background: #2563eb;                 /* slightly darker blue on hover */
+  transform: translateY(-1px);
+}
+
+.modal-btn.delete-btn {
+  background: #ef4444;                 /* red for danger */
+  color: white;
+}
+
+.modal-btn.delete-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.hidden { display: none !important; }
+
+/* Priority colors */
+.priority-low    { background:#22c55e; color:white; }
+.priority-medium { background:#eab308; color:black; }
+.priority-high   { background:#f97316; color:white; }
+.priority-urgent { background:#ef4444; color:white; }
+
+.column-header {
+  padding: 0.9rem 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.count {
+  background: rgba(0,0,0,0.15);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.85em;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.priority-badge {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+.edit-btn {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.edit-btn:hover { opacity: 1; }
+
+.tag {
+  background: var(--accent);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  margin-right: 4px;
+}
+
+.description-preview {
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.dragging {
+  opacity: 0.4;
+  transform: scale(1.02);
+}
+
+/* Modal tabs */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin: 0 -1.5rem 1.5rem -1.5rem;     /* negative margins to stretch full-width */
+  padding: 0 1.5rem;                     /* then restore inner padding */
+  background: var(--surface);            /* optional: subtle separation */
+  margin-top: 1.5rem;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 0.9rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom: 3px solid var(--accent);
+}
+
+.tab-panel {
+  padding: 0.5rem 0;
+}
+
+.tab-panel.hidden { display: none; }
+
+/* Form styling */
+label {
+  display: block;
+  margin: 1rem 0 0.4rem;
+  font-weight: 500;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+button[type="submit"] {
+  margin-top: 1.2rem;
+  padding: 0.7rem 1.4rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+button[type="submit"]:hover {
+  opacity: 0.92;
+}
+
+/* Notes & Documents */
+.note-item, .document-item {
+  background: rgba(0,0,0,0.03);
+  padding: 0.9rem;
+  border-radius: 6px;
+  margin-bottom: 0.8rem;
+}
+
+.note-item small, .document-item small {
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.delete-doc {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85em;
+  margin-top: 0.4rem;
+}
+
+.delete-doc:hover { background: #dc2626; }
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.theme-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 1.0em;               /* slightly larger emoji */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;               /* prevent overflow */
+}
+
+.theme-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.new-btn {
+  padding: 0.7rem 1.4rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 50px;           /* pill shape */
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+  transition: all 0.3s ease;
+}
+
+.new-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59,130,246,0.4);
+}
+
+/* Dynamic icon via JS class - cleaner than ::after */
+[data-theme="light"] .theme-icon::before {
+  content: "🌙";                 /* moon = switch to dark */
+}
+
+[data-theme="dark"] .theme-icon::before {
+  content: "☀️";                 /* sun = switch to light */
+}
+
+.delete-project {
+  position: absolute;
+  top: 1rem;
+  right: 4.5rem;          /* left of close × */
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.delete-project:hover {
+  background: #dc2626;
+}
+
+.close-modal, .delete-project {
+	position: static;
+}
+
+#tab-details {
+  padding: 0 1.5rem 1.5rem;
+}
+
+#project-form label {
+  margin: 1.5rem 0 0.6rem;
+}
+
+#project-form input,
+#project-form textarea,
+#project-form select {
+  margin-top: 0.4rem;
+}
+
+#toast-container {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  max-width: 90%;
+}
+
+.toast {
+  background: var(--surface);
+  color: var(--text);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  margin-top: 0.8rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  border-left: 4px solid var(--accent);
+}
+
+.toast.error {
+  border-left-color: #ef4444;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero {
+	background-position: left;
+	background-repeat: no-repeat;
+	height: 75px;                    /* ← set explicit height (or min-height) */
+	display: flex;
+	justify-content: center;          /* horizontal center */
+	align-items: center;              /* vertical center – this is the magic */
+	text-align: center;               /* centers multi-line text */
+	color: white;                     /* or any color that contrasts with image */
+	text-shadow: 0 2px 8px rgba(0,0,0,0.7); /* optional readability */
+}
+
+.hero h1 {
+	margin-left: 110px;
+	margin-top: 15px;
+	font-size: 3rem;                  /* adjust freely */
+	line-height: 1.1;
+}
+
+/* Tab panels already have their own padding from earlier */
+#tab-details,
+#tab-notes,
+#tab-documents {
+  padding: 0.5rem 0;                     /* keep this light since parent has padding */
+}
+
+/* Footer for bottom actions – only appears when editing existing project */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Ensure the tab-content doesn't get squished */
+.tab-content {
+  margin-bottom: 1.5rem;   /* space before footer */
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;       /* pushes Delete left → Save right */
+  align-items: center;
+  margin-top: 1rem;                     /* good breathing room after last field */
+  padding-top: .75rem;
+  border-top: 1px solid var(--border);  /* subtle separator */
+}
+
+/* Primary save button – prominent on right */
+.save-btn {
+  background: var(--accent);
+  color: white;
+  padding: 0.7rem 1.6rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 140px;                     /* consistent width feel */
+}
+
+.save-btn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Delete button – danger color, left side but still clear */
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  padding: 0.7rem 1.6rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 140px;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
